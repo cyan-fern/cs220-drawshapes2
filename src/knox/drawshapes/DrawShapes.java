@@ -233,8 +233,7 @@ public class DrawShapes extends JFrame
         addToMenu(colorMenu, "Red", new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String text=e.getActionCommand();
-                System.out.println(text);
+                System.out.println(e.getActionCommand());
                 // change the color instance variable to red
                 color = Color.RED;
 			}
@@ -243,10 +242,18 @@ public class DrawShapes extends JFrame
         // blue color
         addToMenu(colorMenu, "Blue", new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String text=e.getActionCommand();
-                System.out.println(text);
+                System.out.println(e.getActionCommand());
                 // change the color instance variable to blue
                 color = Color.BLUE;
+            }
+        });
+        
+        // green color
+        addToMenu(colorMenu, "Green", new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.out.println(e.getActionCommand());
+                // change the color instance variable to blue
+                color = Color.GREEN;
             }
         });
         
