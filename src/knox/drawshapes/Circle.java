@@ -32,7 +32,7 @@ public class Circle extends AbstractShape
                 this.getAnchorPoint().x, 
                 this.getAnchorPoint().y,
                 this.diameter,
-                Util.colorToString(this.getColor()),
+                Util.colorToHex(this.getColor()),
                 this.isSelected());
     }
 

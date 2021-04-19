@@ -20,7 +20,7 @@ public class Square extends Rectangle
                 getAnchorPoint().x,
                 getAnchorPoint().y,
                 width,
-                Util.colorToString(getColor()),
+                Util.colorToHex(getColor()),
                 selected);
     }
 }

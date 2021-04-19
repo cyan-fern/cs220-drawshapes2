@@ -42,7 +42,7 @@ public class Rectangle extends AbstractShape
                 getAnchorPoint().y,
                 width,
                 height,
-                Util.colorToString(getColor()),
+                Util.colorToHex(getColor()),
                 selected);
     }
     
@@ -52,7 +52,7 @@ public class Rectangle extends AbstractShape
                 getAnchorPoint().y,
                 width,
                 height,
-                Util.colorToString(getColor()),
+                Util.colorToHex(getColor()),
                 selected);
     }
     
