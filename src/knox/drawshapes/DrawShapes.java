@@ -16,11 +16,17 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+import javax.swing.colorchooser.ColorSelectionModel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 @SuppressWarnings("serial")
 public class DrawShapes extends JFrame
@@ -32,20 +38,26 @@ public class DrawShapes extends JFrame
     }
     
     private DrawShapesPanel shapePanel;
+    private JTabbedPane tabpane;
     private Scene scene;
     private ShapeType shapeType = ShapeType.SQUARE;
     private Color color = Color.RED;
     private Point startDrag;
 
 
-    public DrawShapes(int width, int height)
-    {
+    public DrawShapes(int width, int height) {
         setTitle("Draw Shapes!");
         scene=new Scene();
         
         // create our canvas, add to this frame's content pane
         shapePanel = new DrawShapesPanel(width,height,scene);
-        this.getContentPane().add(shapePanel, BorderLayout.CENTER);
+        tabpane = new JTabbedPane();
+        JPanel main = new JPanel();
+        tabpane.addTab("Main",main);
+        main.add(shapePanel,BorderLayout.CENTER);
+        JColorChooser colorchooser = new JColorChooser();
+        tabpane.addTab("Color",colorchooser);
+        this.getContentPane().add(tabpane,BorderLayout.CENTER);
         this.setResizable(false);
         this.pack();
         this.setLocation(100,100);
@@ -57,6 +69,13 @@ public class DrawShapes extends JFrame
         // initialize the menu options
         initializeMenu();
 
+        // 
+        colorchooser.getSelectionModel().addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent e) {
+            	color = colorchooser.getColor();
+            }
+        });
+        
         // Handle closing the window.
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
@@ -65,8 +84,7 @@ public class DrawShapes extends JFrame
         });
     }
     
-    private void initializeMouseListener()
-    {
+    private void initializeMouseListener() {
         MouseAdapter a = new MouseAdapter() {
             
             public void mouseClicked(MouseEvent e)
@@ -115,18 +133,15 @@ public class DrawShapes extends JFrame
             /* (non-Javadoc)
              * @see java.awt.event.MouseListener#mousePressed(java.awt.event.MouseEvent)
              */
-            public void mousePressed(MouseEvent e)
-            {
+            public void mousePressed(MouseEvent e) {
                 System.out.printf("mouse pressed at (%d, %d)\n", e.getX(), e.getY());
                 scene.startDrag(e.getPoint());
-                
             }
 
             /* (non-Javadoc)
              * @see java.awt.event.MouseListener#mouseReleased(java.awt.event.MouseEvent)
              */
-            public void mouseReleased(MouseEvent e)
-            {
+            public void mouseReleased(MouseEvent e) {
                 System.out.printf("mouse released at (%d, %d)\n", e.getX(), e.getY());
                 scene.stopDrag();
                 repaint();
@@ -152,8 +167,7 @@ public class DrawShapes extends JFrame
     /**
      * Initialize the menu options
      */
-    private void initializeMenu()
-    {
+    private void initializeMenu() {
         // menu bar
         JMenuBar menuBar = new JMenuBar();
         
@@ -217,43 +231,6 @@ public class DrawShapes extends JFrame
                 String text=e.getActionCommand();
                 System.out.println(text);
                 System.exit(0);
-            }
-        });
-
-        
-        // OK, it's annoying to create menu items this way,
-        // so let's use a helper method
-        
-        // color menu
-        JMenu colorMenu = new JMenu("Color");
-        menuBar.add(colorMenu);
-
-        
-        // red color
-        addToMenu(colorMenu, "Red", new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-                System.out.println(e.getActionCommand());
-                // change the color instance variable to red
-                color = Color.RED;
-			}
-		});
-        
-        // blue color
-        addToMenu(colorMenu, "Blue", new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                System.out.println(e.getActionCommand());
-                // change the color instance variable to blue
-                color = Color.BLUE;
-            }
-        });
-        
-        // green color
-        addToMenu(colorMenu, "Green", new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                System.out.println(e.getActionCommand());
-                // change the color instance variable to blue
-                color = Color.GREEN;
             }
         });
         
@@ -328,8 +305,7 @@ public class DrawShapes extends JFrame
     /**
      * Initialize the keyboard listener.
      */
-    private void initializeKeyListener()
-    {
+    private void initializeKeyListener() {
         shapePanel.addKeyListener(new KeyListener() {
             public void keyPressed(KeyEvent e) {
             	// Called when you push a key down
@@ -360,10 +336,8 @@ public class DrawShapes extends JFrame
     /**
      * @param args
      */
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         DrawShapes shapes=new DrawShapes(700, 600);
         shapes.setVisible(true);
     }
-
 }
