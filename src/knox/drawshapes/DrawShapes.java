@@ -53,8 +53,10 @@ public class DrawShapes extends JFrame
         shapePanel = new DrawShapesPanel(width,height,scene);
         tabpane = new JTabbedPane();
         JPanel main = new JPanel();
+        //add main
         tabpane.addTab("Main",main);
         main.add(shapePanel,BorderLayout.CENTER);
+        //add color
         JColorChooser colorchooser = new JColorChooser();
         tabpane.addTab("Color",colorchooser);
         this.getContentPane().add(tabpane,BorderLayout.CENTER);
@@ -69,7 +71,7 @@ public class DrawShapes extends JFrame
         // initialize the menu options
         initializeMenu();
 
-        // 
+        // keep the color updated
         colorchooser.getSelectionModel().addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
             	color = colorchooser.getColor();
