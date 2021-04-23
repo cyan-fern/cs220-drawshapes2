@@ -173,36 +173,13 @@ public class Scene implements Iterable<IShape>
         while (scan.hasNext()) {
             String type = scan.next();
             if (type.startsWith("SQUARE")) {
-                // SQUARE left top size color selected
-                int left = scan.nextInt();
-                int top = scan.nextInt();
-                int size = scan.nextInt();
-                Color color = Util.hexToColor(scan.next());
-                boolean selected = Boolean.parseBoolean(scan.next());
-                Square sq = new Square(left + size/2, top + size/2, size, color);
-                sq.setSelected(selected);
-                addShape(sq);
+                addShape(Square.parsemake(scan.nextLine().trim()));
             } else if (type.startsWith("CIRCLE")) {
-                // CIRCLE centerx centery diameter color selected
-                int centerx = scan.nextInt();
-                int centery = scan.nextInt();
-                int diameter = scan.nextInt();
-                Color color = Util.hexToColor(scan.next());
-                boolean selected = Boolean.parseBoolean(scan.next());
-                Circle circle = new Circle(color, new Point(centerx, centery), diameter);
-                circle.setSelected(selected);
-                addShape(circle);
+                addShape(Circle.parsemake(scan.nextLine().trim()));
             } else if (type.startsWith("RECTANGLE")) {
-                // RECTANGLE left top width height color selected
-                int left = scan.nextInt();
-                int top = scan.nextInt();
-                int width = scan.nextInt();
-                int height = scan.nextInt();
-                Color color = Util.hexToColor(scan.next());
-                boolean selected = Boolean.parseBoolean(scan.next());
-                Rectangle rec = new Rectangle(new Point(left, top), width, height, color);
-                rec.setSelected(selected);
-                addShape(rec);
+                addShape(Rectangle.parsemake(scan.nextLine().trim()));
+            } else if (type.startsWith("POLYGON")) {
+                addShape(Polygon.parsemake(scan.nextLine().trim()));
             }
         }
     }

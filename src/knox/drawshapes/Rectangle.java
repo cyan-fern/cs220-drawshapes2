@@ -55,23 +55,10 @@ public class Rectangle extends AbstractShape
         }
         g.fillRect(x1,y1,x2-x1,y2-y1);
     }
-
-    public String toString() {
-        return String.format("RECTANGLE (%d, %d) width=%d height=%d color=%s selected? %s",
-                x1,
-                y1,
-                x2,
-                y2,
-                Util.colorToHex(getColor()),
-                selected);
-    }
     
-    public String encode() {
+    public String toString() {
     	return String.format("RECTANGLE %d %d %d %d %s %s",
-                x1,
-                y1,
-                x2,
-                y2,
+                x1,y1,x2-x1,y2-y1,
                 Util.colorToHex(getColor()),
                 selected);
     }
@@ -80,5 +67,14 @@ public class Rectangle extends AbstractShape
 	public void scale(double factor) {
 		//this.width = (int)(this.width * factor);
 		//this.height = (int)(this.height * factor);
+	}
+
+	public static IShape parsemake(String sarg) {
+		String[] arg = sarg.split("\s+");
+		int[] iarg = new int[4];
+		for(int i=0;i<4;i++) {iarg[i]=Integer.valueOf(arg[i]);}
+        Rectangle s = new Rectangle(new Point(iarg[0],iarg[1]),iarg[2],iarg[3],Util.hexToColor(arg[4]));
+        s.setSelected(Boolean.parseBoolean(arg[5]));
+        return s;
 	}
 }

@@ -53,4 +53,13 @@ public class Circle extends AbstractShape
 		return null;
 	}
 
+	public static IShape parsemake(String sarg) {
+		String[] arg = sarg.split("\s+");
+		int[] iarg = new int[3];
+		for(int i=0;i<3;i++) {iarg[i]=Integer.valueOf(arg[i]);}
+        Circle s = new Circle(Util.hexToColor(arg[3]),new Point(iarg[0],iarg[1]),iarg[2]);
+        s.setSelected(Boolean.parseBoolean(arg[4]));
+        return s;
+	}
+
 }
