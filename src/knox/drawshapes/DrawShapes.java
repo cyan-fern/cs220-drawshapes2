@@ -24,7 +24,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.colorchooser.ColorSelectionModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -34,7 +33,8 @@ public class DrawShapes extends JFrame
     private enum ShapeType {
         SQUARE,
         CIRCLE,
-        RECTANGLE
+        RECTANGLE,
+        TRIANGLE
     }
     
     private DrawShapesPanel shapePanel;
@@ -42,7 +42,6 @@ public class DrawShapes extends JFrame
     private Scene scene;
     private ShapeType shapeType = ShapeType.SQUARE;
     private Color color = Color.RED;
-    private Point startDrag;
 
 
     public DrawShapes(int width, int height) {
@@ -95,10 +94,10 @@ public class DrawShapes extends JFrame
                 
                 if (e.getButton()==MouseEvent.BUTTON1) { 
                     if (shapeType == ShapeType.SQUARE) {
-                        scene.addShape(new Square(color, 
-                                e.getX(), 
+                        scene.addShape(new Square(e.getX(), 
                                 e.getY(),
-                                100));
+                                100,
+                        		color));
                     } else if (shapeType == ShapeType.CIRCLE){
                         scene.addShape(new Circle(color,
                                 e.getPoint(),
@@ -108,6 +107,12 @@ public class DrawShapes extends JFrame
                                 e.getPoint(),
                                 100, 
                                 200,
+                                color));
+                    } else if (shapeType == ShapeType.TRIANGLE) {
+                        scene.addShape(new Triangle(
+                                e.getPoint(),
+                                100, 200,
+                                -200, -100,
                                 color));
                     }
                     
@@ -255,6 +260,15 @@ public class DrawShapes extends JFrame
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Circle");
                 shapeType = ShapeType.CIRCLE;
+            }
+        });
+        
+        // tri
+        addToMenu(shapeMenu, "tri", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("tri");
+                shapeType = ShapeType.TRIANGLE;
             }
         });
         

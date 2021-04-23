@@ -19,7 +19,7 @@ import java.awt.Point;
  * @author jaimespacco
  *
  */
-public interface IShape extends IMoveableShape
+public interface IShape
 {
     /**
      * Draw the shape using the given Graphics object
@@ -27,19 +27,34 @@ public interface IShape extends IMoveableShape
      */
     public void draw(Graphics g);
     /**
-     * Does this shape intersect any part of the other shape?
+     * Returns whether this shape intersects shape s
      * 
-     * @param other
+     * @param s
      * @return
      */
-    public boolean intersects(IShape other);
+    public boolean intersects(IShape s);
     /**
-     * Does this shape contain the given point?
+     * Calculate half of the collision check using sat
      * 
-     * @param point
+     * @param s
      * @return
      */
-    public boolean contains(Point point);
+    public boolean satcheck(IShape s);
+    /**
+     * Casts this shape to the given vector
+     * 
+     * @param xv
+     * @param yv
+     * @return
+     */
+    public Range satcast(int xv,int yv);
+    /**
+     * Returns whether this shape contains point p
+     * 
+     * @param p
+     * @return
+     */
+    public boolean contains(Point p);
     /**
      * Return the color of this shape.
      * 
@@ -53,7 +68,7 @@ public interface IShape extends IMoveableShape
      */
     public void setColor(Color color);
     /**
-     * Is this shape selected?
+     * Returns whether this shape is selected
      * 
      * Some operations apply to all selected shapes.
      * 
@@ -76,4 +91,15 @@ public interface IShape extends IMoveableShape
      * @param p
      */
     public void setAnchorPoint(Point p);
+	/**
+     * Move the anchor point of the shape by the given dx and dy values
+     * @param dx
+     * @param dy
+     */
+    public void move(int dx, int dy);
+    /**
+     * Scale the size of the shape by the given factor
+     * @param d
+     */
+    public void scale(double d);
 }

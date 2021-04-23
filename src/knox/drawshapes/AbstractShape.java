@@ -39,13 +39,13 @@ public abstract class AbstractShape implements IShape {
     public Point getAnchorPoint() {
         return anchorPoint;
     }
-    @Override
-    public boolean intersects(IShape other) {
-    	AbstractShape s = (AbstractShape)other;
-        return boundingBox.intersects(s.getBoundingBox());
+    public boolean intersects(IShape s) {
+        return this.satcheck(s)&&s.satcheck(this);
     }
-
-    @Override
+    public int dotproduct(int x1,int y1,int x2,int y2) {
+    	return (x1*x2)+(y1*y2);
+    }
+	@Override
     public boolean contains(Point point) {
         return boundingBox.contains(point);
     }

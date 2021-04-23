@@ -179,7 +179,7 @@ public class Scene implements Iterable<IShape>
                 int size = scan.nextInt();
                 Color color = Util.hexToColor(scan.next());
                 boolean selected = Boolean.parseBoolean(scan.next());
-                Square sq = new Square(color, left + size/2, top + size/2, size);
+                Square sq = new Square(left + size/2, top + size/2, size, color);
                 sq.setSelected(selected);
                 addShape(sq);
             } else if (type.startsWith("CIRCLE")) {

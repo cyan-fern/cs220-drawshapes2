@@ -41,4 +41,16 @@ public class Circle extends AbstractShape
 		this.diameter = (int)(factor * this.diameter);
 	}
 
+	@Override
+	public boolean satcheck(IShape s) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Range satcast(int xv, int yv) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
