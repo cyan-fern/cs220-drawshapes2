@@ -48,8 +48,10 @@ public abstract class AbstractShape implements IShape {
     }
 	@Override
     public boolean contains(Point point) {
-		// TODO: reimplement
-		return false;
+		//this likely won't be efficient, but it should work.
+		Point cp=this.cpoint(point.x,point.y);
+		int ix=point.x-cp.x;int iy=point.y-cp.y;
+		return this.satcast(ix,iy).intersect(new Range(dotproduct(point.x,point.y,ix,iy)));
     }
 
 	@Override
