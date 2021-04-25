@@ -27,12 +27,11 @@ public class Rectangle extends AbstractShape
 	public boolean satcheck(IShape s) {
 		Range r=this.satcast(1, 0);
 		Range sr=s.satcast(1, 0);
-		Boolean o=r.intersect(sr);
+		if(!r.intersect(sr)) {return false;}
 		
 		r=this.satcast(0, 1);
 		sr=s.satcast(0, 1);
-		o&=r.intersect(sr);
-		return o;
+		return r.intersect(sr);
 	}
 
 	@Override

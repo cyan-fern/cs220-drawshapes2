@@ -42,6 +42,12 @@ public class Circle extends AbstractShape
 	}
 
 	@Override
+    public boolean intersects(IShape s) {
+		//override to try the presumably less expensive calculations first, and letting short-circuiting do its thing
+        return s.satcheck(this)&&this.satcheck(s);
+    }
+
+	@Override
 	public boolean satcheck(IShape s) {
 		Point cp=s.cpoint(x,y);
 		int ix=x-cp.x;int iy=y-cp.y;
