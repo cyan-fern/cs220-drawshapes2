@@ -50,6 +50,11 @@ public class Rectangle extends AbstractShape
 		if(y<(y1+y2)/2) {py=y1;}else {py=y2;}
 		return new Point(px,py);
 	}
+
+	@Override
+	public boolean contains(Point p) {
+		return x1<p.x&&p.x<x2&&y1<p.y&&p.y<y2;
+	}
     /* (non-Javadoc)
      * @see drawshapes.sol.Shape#draw(java.awt.Graphics)
      */

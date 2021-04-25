@@ -49,9 +49,11 @@ public abstract class AbstractShape implements IShape {
 	@Override
     public boolean contains(Point point) {
 		//this likely won't be efficient, but it should work.
-		Point cp=this.cpoint(point.x,point.y);
-		int ix=point.x-cp.x;int iy=point.y-cp.y;
-		return this.satcast(ix,iy).intersect(new Range(dotproduct(point.x,point.y,ix,iy)));
+		//..is what I thought, but I had things reversed in my head. I need to implement this separately for each shape.
+		//which is annoying because it's so similar to satcheck(), but points aren't a shape
+		//I thought about creating a dummy class, but I decided against that.
+		//also I'm still sad about the whole untracked file thing, I may have to fix the repository a bit later
+		return false;
     }
 
 	@Override

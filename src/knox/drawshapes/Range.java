@@ -18,4 +18,7 @@ public class Range {
 	public Boolean intersect(Range r) {
 		return !(r.min>this.max||this.min>r.max);
 	}
+	public Boolean intersect(int r) {
+		return (this.max>r&&r>this.min);
+	}
 }

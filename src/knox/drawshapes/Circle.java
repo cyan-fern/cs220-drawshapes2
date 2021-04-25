@@ -64,6 +64,12 @@ public class Circle extends AbstractShape
 		return this.getAnchorPoint();
 	}
 
+	@Override
+	public boolean contains(Point p) {
+		int ix=x-p.x;int iy=y-p.y;
+		return Math.sqrt(ix*ix+iy*iy)<r;
+	}
+
 	public static IShape parsemake(String sarg) {
 		String[] arg = sarg.split("\s+");
 		int[] iarg = new int[3];
