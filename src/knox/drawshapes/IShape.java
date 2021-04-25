@@ -49,6 +49,14 @@ public interface IShape
      */
     public Range satcast(int xv,int yv);
     /**
+     * Return closest vertex of shape to specified point
+     * 
+     * @param xv
+     * @param yv
+     * @return
+     */
+    public Point cpoint(int x,int y);
+    /**
      * Returns whether this shape contains point p
      * 
      * @param p

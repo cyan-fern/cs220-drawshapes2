@@ -43,6 +43,13 @@ public class Rectangle extends AbstractShape
 		r.add(dotproduct(x2,y2,xv,yv));
 		return r;
 	}
+	@Override
+	public Point cpoint(int x, int y) {
+		int px,py;
+		if(x<(x1+x2)/2) {px=x1;}else {px=x2;}
+		if(y<(y1+y2)/2) {py=y1;}else {py=y2;}
+		return new Point(px,py);
+	}
     /* (non-Javadoc)
      * @see drawshapes.sol.Shape#draw(java.awt.Graphics)
      */

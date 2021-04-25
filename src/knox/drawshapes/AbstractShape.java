@@ -39,6 +39,7 @@ public abstract class AbstractShape implements IShape {
     public Point getAnchorPoint() {
         return anchorPoint;
     }
+    @Override
     public boolean intersects(IShape s) {
         return this.satcheck(s)&&s.satcheck(this);
     }
@@ -47,7 +48,8 @@ public abstract class AbstractShape implements IShape {
     }
 	@Override
     public boolean contains(Point point) {
-        return boundingBox.contains(point);
+		// TODO: reimplement
+		return false;
     }
 
 	@Override

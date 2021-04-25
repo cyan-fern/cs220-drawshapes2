@@ -6,12 +6,13 @@ import java.awt.Point;
 
 public class Circle extends AbstractShape
 {
-    private int diameter;
+    private int r;
+    private int x,y;
     
-    public Circle(Color color, Point center, int diameter) {
+    public Circle(Color color, Point center, int radius) {
     	super(center, color);
-        boundingBox = new BoundingBox(center.x - diameter/2, center.x + diameter/2, center.y - diameter/2, center.y + diameter/2);
-        this.diameter = diameter;
+        this.r = radius;
+        x=center.x;y=center.y;
     }
 
     @Override
@@ -21,36 +22,46 @@ public class Circle extends AbstractShape
         } else {
             g.setColor(getColor());
         }
-        g.fillOval((int)getAnchorPoint().getX() - diameter/2,
-                (int)getAnchorPoint().getY() - diameter/2,
-                diameter,
-                diameter);
+        g.fillOval(getAnchorPoint().x - r,
+                getAnchorPoint().y - r,
+                r*2,
+                r*2);
     }
     
     public String toString() {
         return String.format("CIRCLE %d %d %d %s %s", 
-                this.getAnchorPoint().x, 
-                this.getAnchorPoint().y,
-                this.diameter,
+                x,y,
+                this.r,
                 Util.colorToHex(this.getColor()),
                 this.isSelected());
     }
 
 	@Override
 	public void scale(double factor) {
-		this.diameter = (int)(factor * this.diameter);
+		this.r = (int)(factor * this.r);
 	}
 
 	@Override
 	public boolean satcheck(IShape s) {
-		// TODO Auto-generated method stub
-		return false;
+		Point cp=s.cpoint(x,y);
+		int ix=x-cp.x;int iy=y-cp.y;
+		Range r=this.satcast(ix, iy);Range sr=s.satcast(ix, iy);
+		return r.intersect(sr);
 	}
 
 	@Override
 	public Range satcast(int xv, int yv) {
-		// TODO Auto-generated method stub
-		return null;
+		//forced to use sqrt here sadly, integer math not quite possible. bad circle.
+		double m = Math.sqrt(xv*xv+yv*yv);
+		int p=dotproduct(x,y,xv,yv);
+		Range o = new Range(p-(int)(r*m));
+		o.add(p+(int)(r*m));
+		return o;
+	}
+
+	@Override
+	public Point cpoint(int x, int y) {
+		return this.getAnchorPoint();
 	}
 
 	public static IShape parsemake(String sarg) {
