@@ -7,7 +7,6 @@ public abstract class AbstractShape implements IShape {
 	protected Point anchorPoint;
 	protected Color color;
 	protected boolean selected;
-	protected BoundingBox boundingBox;
 	
 	public AbstractShape(Point anchorPoint, Color color) {
 		this.anchorPoint = anchorPoint;
@@ -59,16 +58,6 @@ public abstract class AbstractShape implements IShape {
 	@Override
 	public void move(int dx, int dy) {
 		this.setAnchorPoint(new Point(this.anchorPoint.x + dx, this.anchorPoint.y + dy));
-		this.boundingBox.move(dx, dy);
 	}
-	
-	 /**
-     * Returns the bounding box of this shape. The bounding box
-     * is the max/min X and Y coordinates.
-     * @return
-     */
-    BoundingBox getBoundingBox() {
-    	return this.boundingBox;
-    }
 
 }
