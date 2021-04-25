@@ -26,14 +26,14 @@ public class Polygon extends AbstractShape {
 	public boolean satcheck(IShape s) {
 		int ix=y[0]-y[n-1];int iy=x[n-1]-x[0];
 		Range r=this.satcast(ix, iy);Range sr=s.satcast(ix, iy);
-		Boolean o=r.intersect(sr);
+		if(!r.intersect(sr)) {return false;}
 		for(int i=1;i<n;i++) {
 			ix=y[i]-y[i-1];iy=x[i-1]-x[i];
 			r=this.satcast(ix, iy);
 			sr=s.satcast(ix, iy);
-			o&=r.intersect(sr);
+			if(!r.intersect(sr)) {return false;}
 		}
-		return o;
+		return true;
 	}
 
 	@Override
@@ -62,14 +62,14 @@ public class Polygon extends AbstractShape {
 	public boolean contains(Point s) {
 		int ix=y[0]-y[n-1];int iy=x[n-1]-x[0];
 		Range r=this.satcast(ix, iy);int sr=dotproduct(s.x,s.y,ix,iy);
-		Boolean o=r.intersect(sr);
+		if(!r.intersect(sr)) {return false;}
 		for(int i=1;i<n;i++) {
 			ix=y[i]-y[i-1];iy=x[i-1]-x[i];
 			r=this.satcast(ix, iy);
 			sr=dotproduct(s.x,s.y,ix,iy);
-			o&=r.intersect(sr);
+			if(!r.intersect(sr)) {return false;}
 		}
-		return o;
+		return true;
 	}
 
 	@Override
