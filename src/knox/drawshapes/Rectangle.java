@@ -11,16 +11,22 @@ public class Rectangle extends AbstractShape
     protected int x2;
     protected int y2;
     
-    public Rectangle(Point topleft, int width, int height, Color color){
-    	super(new Point(topleft.x, topleft.y), color);
-    	this.x1=topleft.x;
-    	this.y1=topleft.y;
-        this.x2=x1+width;
-        this.y2=y1+height;
+    public Rectangle(int left,int top,int right,int bottom,Color color){
+    	super(color);
+    	this.x1=left;
+    	this.y1=top;
+        this.x2=right;
+        this.y2=bottom;
+        this.center=this.calccenter();
     }
     
-    public Rectangle(int left, int right, int top, int bottom) {
-    	this(new Point(left, top), right - left, bottom - top, Color.BLUE);
+    public Rectangle(Point center,int left,int top,int right,int bottom,Color color){
+    	super(color);
+    	this.x1=left;
+    	this.y1=top;
+        this.x2=right;
+        this.y2=bottom;
+        this.center=center;
     }
 
 	@Override
@@ -69,22 +75,28 @@ public class Rectangle extends AbstractShape
     
     public String toString() {
     	return String.format("RECTANGLE %d %d %d %d %s %s",
-                x1,y1,x2-x1,y2-y1,
+                x1,y1,x2,y2,
                 Util.colorToHex(getColor()),
                 selected);
     }
     
+    private Point calccenter() {
+		return new Point((x1+x2)/2,(y1+y2)/2);
+	}
+    
 	@Override
-	public void scale(double factor) {
-		//this.width = (int)(this.width * factor);
-		//this.height = (int)(this.height * factor);
+	public void scale(double d) {
+		x1=(int)(center.x+(x1-center.x)*d);
+		y1=(int)(center.y+(y1-center.y)*d);
+		x2=(int)(center.x+(x2-center.x)*d);
+		y2=(int)(center.y+(y2-center.y)*d);
 	}
 
 	public static IShape parsemake(String sarg) {
 		String[] arg = sarg.split("\s+");
 		int[] iarg = new int[4];
 		for(int i=0;i<4;i++) {iarg[i]=Integer.valueOf(arg[i]);}
-        Rectangle s = new Rectangle(new Point(iarg[0],iarg[1]),iarg[2],iarg[3],Util.hexToColor(arg[4]));
+        Rectangle s = new Rectangle(iarg[0],iarg[1],iarg[2],iarg[3],Util.hexToColor(arg[4]));
         s.setSelected(Boolean.parseBoolean(arg[5]));
         return s;
 	}

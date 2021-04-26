@@ -92,27 +92,17 @@ public class DrawShapes extends JFrame
             {
                 System.out.printf("Mouse cliked at (%d, %d)\n", e.getX(), e.getY());
                 
-                if (e.getButton()==MouseEvent.BUTTON1) { 
+                if (e.getButton()==MouseEvent.BUTTON1) {
                     if (shapeType == ShapeType.SQUARE) {
-                        scene.addShape(new Square(e.getX(), 
-                                e.getY(),
-                                100,
-                        		color));
-                    } else if (shapeType == ShapeType.CIRCLE){
-                        scene.addShape(new Circle(color,
-                                e.getPoint(),
-                                100));
-                    } else if (shapeType == ShapeType.RECTANGLE) {
-                        scene.addShape(new Rectangle(
-                                e.getPoint(),
-                                100, 
-                                200,
-                                color));
+                        scene.addShape(new Square(e.getX(),e.getY(),100,color));}
+                    else if (shapeType == ShapeType.CIRCLE){
+                        scene.addShape(new Circle(e.getX(),e.getY(),100,color));}
+                    else if (shapeType == ShapeType.RECTANGLE) {
+                        scene.addShape(new Rectangle(e.getX(),e.getY(),100,200,color));
                     } else if (shapeType == ShapeType.TRIANGLE) {
-                        scene.addShape(new Triangle(
-                                e.getPoint(),
-                                100, 200,
-                                -200, -100,
+                        scene.addShape(new Triangle(e.getX(),e.getY(),
+                                100,200,
+                                -200,-100,
                                 color));
                     }
                     
@@ -282,7 +272,7 @@ public class DrawShapes extends JFrame
             public void actionPerformed(ActionEvent e) {
                 String text=e.getActionCommand();
                 System.out.println(text);
-                scene.scale(1.5);
+                scene.scale((double)5/4);
                 repaint();
             }
         });
@@ -292,7 +282,7 @@ public class DrawShapes extends JFrame
             public void actionPerformed(ActionEvent e) {
                 String text=e.getActionCommand();
                 System.out.println(text);
-                scene.scale(0.75);
+                scene.scale((double)4/5);
                 repaint();
             }
         });

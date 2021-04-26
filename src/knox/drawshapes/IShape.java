@@ -100,7 +100,7 @@ public interface IShape
      */
     public void setAnchorPoint(Point p);
 	/**
-     * Move the anchor point of the shape by the given dx and dy values
+     * Move the shape by the given dx and dy values
      * @param dx
      * @param dy
      */

@@ -3,16 +3,11 @@ package knox.drawshapes;
 
 
 import java.awt.Color;
-import java.awt.Point;
 
 public class Square extends Rectangle
 {
-    public Square(int centerX, int centerY, int length, Color color) {
-        super(new Point(centerX, centerY), length, length, color);
-    }
-    
-    public Square(Point center, int length, Color color) {
-    	super(center, length, length, color);
+    public Square(int x,int y,int s,Color color) {
+        super(x,y,x+s,y+s,color);
     }
 
 	public static IShape parsemake(String sarg) {

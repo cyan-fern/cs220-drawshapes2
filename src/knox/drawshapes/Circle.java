@@ -9,36 +9,44 @@ public class Circle extends AbstractShape
     private int r;
     private int x,y;
     
-    public Circle(Color color, Point center, int radius) {
-    	super(center, color);
+    public Circle(int x,int y,int radius,Color color) {
+    	super(color);
         this.r = radius;
-        x=center.x;y=center.y;
+        this.x=x;this.y=y;
+		this.center=this.calccenter();
+    }
+    
+    public Circle(Point center,int x,int y,int radius,Color color) {
+    	super(color);
+        this.r = radius;
+        this.x=x;this.y=y;
+		this.center=center;
+		//for consistency, and also because I might add it to the interface later
     }
 
     @Override
     public void draw(Graphics g) {
         if (isSelected()){
-            g.setColor(getColor().darker());
-        } else {
-            g.setColor(getColor());
-        }
-        g.fillOval(getAnchorPoint().x - r,
-                getAnchorPoint().y - r,
-                r*2,
-                r*2);
+            g.setColor(getColor().darker());}
+        else {
+            g.setColor(getColor());}
+        g.fillOval(x-r,y-r, r*2,r*2);
     }
     
     public String toString() {
         return String.format("CIRCLE %d %d %d %s %s", 
-                x,y,
-                this.r,
+                x,y,this.r,
                 Util.colorToHex(this.getColor()),
                 this.isSelected());
     }
+    
+    private Point calccenter() {
+		return new Point(this.x,this.y);
+	}
 
 	@Override
-	public void scale(double factor) {
-		this.r = (int)(factor * this.r);
+	public void scale(double d) {
+		this.r*=d;
 	}
 
 	@Override
@@ -80,7 +88,7 @@ public class Circle extends AbstractShape
 		String[] arg = sarg.split("\s+");
 		int[] iarg = new int[3];
 		for(int i=0;i<3;i++) {iarg[i]=Integer.valueOf(arg[i]);}
-        Circle s = new Circle(Util.hexToColor(arg[3]),new Point(iarg[0],iarg[1]),iarg[2]);
+        Circle s = new Circle(iarg[0],iarg[1],iarg[2],Util.hexToColor(arg[3]));
         s.setSelected(Boolean.parseBoolean(arg[4]));
         return s;
 	}

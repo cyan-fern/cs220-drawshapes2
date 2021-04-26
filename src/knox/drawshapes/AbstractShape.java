@@ -4,19 +4,18 @@ import java.awt.Color;
 import java.awt.Point;
 
 public abstract class AbstractShape implements IShape {
-	protected Point anchorPoint;
+	protected Point center;
 	protected Color color;
 	protected boolean selected;
 	
-	public AbstractShape(Point anchorPoint, Color color) {
-		this.anchorPoint = anchorPoint;
+	public AbstractShape(Color color) {
 		this.color = color;
 	}
 	
 	@Override
     public void setAnchorPoint(Point p) {
         // TODO: move bounding box
-        this.anchorPoint = p;
+        this.center = p;
     }
     @Override
     public Color getColor() {
@@ -36,7 +35,7 @@ public abstract class AbstractShape implements IShape {
     }
     @Override
     public Point getAnchorPoint() {
-        return anchorPoint;
+        return center;
     }
     @Override
     public boolean intersects(IShape s) {
@@ -57,7 +56,7 @@ public abstract class AbstractShape implements IShape {
 
 	@Override
 	public void move(int dx, int dy) {
-		this.setAnchorPoint(new Point(this.anchorPoint.x + dx, this.anchorPoint.y + dy));
+		this.setAnchorPoint(new Point(this.center.x + dx, this.center.y + dy));
 	}
 
 }

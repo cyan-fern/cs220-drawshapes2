@@ -9,17 +9,21 @@ public class Polygon extends AbstractShape {
 	protected int[] y;
 	protected int n;
 
-	public Polygon(Point anchorPoint,int[] x,int[] y,int n,Boolean unsafe,Color color) {
-		super(anchorPoint, color);
+	public Polygon(Point center,int[] x,int[] y,int n,Color color) {
+		//in the event you want to override default center calculation for some reason
+		super(color);
 		this.n=n;
-		if(!unsafe) {this.x=x;this.y=y;}
-		else{this.x=x.clone();this.y=y.clone();}
-	}
-	public Polygon(Point anchorPoint,int[] x,int[] y,int n,Color color) {
-		this(anchorPoint,x,y,n,false,color);
+		this.x=x;
+		this.y=y;
+		this.center=center;
 	}
 	public Polygon(int[] x,int[] y,int n,Color color) {
-		this(new Point(x[0],y[0]),x,y,n,false,color);
+		super(color);
+		this.n=n;
+		this.x=x;
+		this.y=y;
+		this.center=this.calccenter();
+		//used pretty much just for scale()
 	}
 
 	@Override
@@ -85,8 +89,19 @@ public class Polygon extends AbstractShape {
     	return String.format("POLYGON %s%d %s %s",subs,n,Util.colorToHex(getColor()),selected);
     }
 
+	private Point calccenter() {
+		int xc=0,yc=0;
+		for(int i=0;i<n;i++) {
+			xc+=x[i];yc+=y[i];}
+		xc/=n;yc/=n;
+		return new Point(xc,yc);
+	}
+
 	@Override
 	public void scale(double d) {
+		for(int i=0;i<n;i++) {
+			x[i]=(int)(center.x+(x[i]-center.x)*d);
+			y[i]=(int)(center.y+(y[i]-center.y)*d);}
 	}
 	
 	public static IShape parsemake(String sarg) {
