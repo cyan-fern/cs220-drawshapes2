@@ -40,8 +40,9 @@ public class DrawShapes extends JFrame
     private DrawShapesPanel shapePanel;
     private JTabbedPane tabpane;
     private Scene scene;
-    private ShapeType shapeType = ShapeType.SQUARE;
-    private Color color = Color.RED;
+    private ShapeType shapeType = ShapeType.TRIANGLE;
+    private Color color = Color.ORANGE;
+    //I got tired of red.
 
 
     public DrawShapes(int width, int height) {
@@ -94,16 +95,20 @@ public class DrawShapes extends JFrame
                 
                 if (e.getButton()==MouseEvent.BUTTON1) {
                     if (shapeType == ShapeType.SQUARE) {
-                        scene.addShape(new Square(e.getX(),e.getY(),100,color));}
+                        IShape s=new Square(0,0,100,color);
+                        s.moveto(e.getX(),e.getY());
+                        scene.addShape(s);}
                     else if (shapeType == ShapeType.CIRCLE){
+                    	//already fine by default
                         scene.addShape(new Circle(e.getX(),e.getY(),100,color));}
                     else if (shapeType == ShapeType.RECTANGLE) {
-                        scene.addShape(new Rectangle(e.getX(),e.getY(),100,200,color));
-                    } else if (shapeType == ShapeType.TRIANGLE) {
-                        scene.addShape(new Triangle(e.getX(),e.getY(),
-                                100,200,
-                                -200,-100,
-                                color));
+                        IShape s=new Rectangle(e.getX(),e.getY(),100,200,color);
+                        s.moveto(e.getX(),e.getY());
+                        scene.addShape(s);}
+                    else if (shapeType == ShapeType.TRIANGLE) {
+                    	IShape s=new Triangle(0,0,100,200,200,25,color);
+                        s.moveto(e.getX(),e.getY());
+                        scene.addShape(s);
                     }
                     
                 } else if (e.getButton()==MouseEvent.BUTTON2) {
@@ -133,6 +138,7 @@ public class DrawShapes extends JFrame
             public void mousePressed(MouseEvent e) {
                 System.out.printf("mouse pressed at (%d, %d)\n", e.getX(), e.getY());
                 scene.startDrag(e.getPoint());
+                shapePanel.grabFocus();
             }
 
             /* (non-Javadoc)
@@ -316,10 +322,19 @@ public class DrawShapes extends JFrame
             public void keyPressed(KeyEvent e) {
             	// Called when you push a key down
             	System.out.println("key pressed: " + e.getKeyChar());
-            	if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+            	switch(e.getKeyCode()) {
+            	case(KeyEvent.VK_LEFT):
             		scene.moveSelected(-50, 0);
-            	} else if (e.getKeyCode() == KeyEvent.VK_UP) {
+            		break;
+            	case(KeyEvent.VK_UP):
             		scene.moveSelected(0, -50);
+        			break;
+            	case(KeyEvent.VK_RIGHT):
+            		scene.moveSelected(50, 0);
+            		break;
+            	case(KeyEvent.VK_DOWN):
+            		scene.moveSelected(0, 50);
+        			break;
             	}
             	repaint();
             }

@@ -45,6 +45,12 @@ public class Circle extends AbstractShape
 	}
 
 	@Override
+	public void move(int dx,int dy) {
+		this.x+=dx;
+		this.y+=dy;
+	}
+
+	@Override
 	public void scale(double d) {
 		this.r*=d;
 	}
@@ -75,7 +81,7 @@ public class Circle extends AbstractShape
 
 	@Override
 	public Point cpoint(int x, int y) {
-		return this.getAnchorPoint();
+		return this.getcenter();
 	}
 
 	@Override

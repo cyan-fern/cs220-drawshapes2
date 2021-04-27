@@ -85,6 +85,15 @@ public class Rectangle extends AbstractShape
 	}
     
 	@Override
+	public void move(int dx,int dy) {
+		super.move(dx,dy);
+		x1+=dx;
+		y1+=dy;
+		x2+=dx;
+		y2+=dy;
+	}
+    
+	@Override
 	public void scale(double d) {
 		x1=(int)(center.x+(x1-center.x)*d);
 		y1=(int)(center.y+(y1-center.y)*d);

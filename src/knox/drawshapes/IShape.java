@@ -93,12 +93,18 @@ public interface IShape
      * Return the anchor point of this shape.
      * @return
      */
-    public Point getAnchorPoint();
+    public Point getcenter();
     /**
      * Set the anchor point of this shape to the given point.
      * @param p
      */
-    public void setAnchorPoint(Point p);
+    public void setcenter(Point p);
+	/**
+     * Move the center of the shape to the given coordinates
+     * @param dx
+     * @param dy
+     */
+    public void moveto(int dx, int dy);
 	/**
      * Move the shape by the given dx and dy values
      * @param dx

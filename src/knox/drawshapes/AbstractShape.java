@@ -13,7 +13,7 @@ public abstract class AbstractShape implements IShape {
 	}
 	
 	@Override
-    public void setAnchorPoint(Point p) {
+    public void setcenter(Point p) {
         // TODO: move bounding box
         this.center = p;
     }
@@ -34,7 +34,7 @@ public abstract class AbstractShape implements IShape {
         this.selected = selected;
     }
     @Override
-    public Point getAnchorPoint() {
+    public Point getcenter() {
         return center;
     }
     @Override
@@ -55,8 +55,14 @@ public abstract class AbstractShape implements IShape {
     }
 
 	@Override
+	public void moveto(int dx, int dy) {
+		this.move(dx-center.x,dy-center.y);
+	}
+
+	@Override
 	public void move(int dx, int dy) {
-		this.setAnchorPoint(new Point(this.center.x + dx, this.center.y + dy));
+		this.center.x+=dx;
+		this.center.y+=dy;
 	}
 
 }

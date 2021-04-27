@@ -98,6 +98,14 @@ public class Polygon extends AbstractShape {
 	}
 
 	@Override
+	public void move(int dx,int dy) {
+		super.move(dx,dy);
+		for(int i=0;i<n;i++) {
+			x[i]+=dx;
+			y[i]+=dy;}
+	}
+
+	@Override
 	public void scale(double d) {
 		for(int i=0;i<n;i++) {
 			x[i]=(int)(center.x+(x[i]-center.x)*d);
