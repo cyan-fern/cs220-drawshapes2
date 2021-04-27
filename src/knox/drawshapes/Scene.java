@@ -2,6 +2,7 @@ package knox.drawshapes;
 
 
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.io.File;
@@ -26,7 +27,7 @@ import java.util.Scanner;
 public class Scene implements Iterable<IShape>
 {
     private List<IShape> shapeList = new LinkedList<IShape>();
-    private SelectionRectangle selectRect;
+    private Rectangle selectRect;
     private boolean isDrag;
     private Point startDrag;
     
@@ -34,23 +35,12 @@ public class Scene implements Iterable<IShape>
         for (IShape s : this){
             s.setSelected(false);
         }
-        if (drag.x > startDrag.x){
-            if (drag.y > startDrag.y){
-                // top-left to bottom-right
-                selectRect = new SelectionRectangle(startDrag.x, drag.x, startDrag.y, drag.y);
-            } else {
-                // bottom-left to top-right
-                selectRect = new SelectionRectangle(startDrag.x, drag.x, drag.y, startDrag.y);
-            }
-        } else {
-            if (drag.y > startDrag.y){
-                // top-right to bottom-left
-                selectRect = new SelectionRectangle(drag.x, startDrag.x, startDrag.y, drag.y);
-            } else {
-                // bottom-left to top-right
-                selectRect = new SelectionRectangle(drag.x, startDrag.x, drag.y, startDrag.y);
-            }
-        }
+        int x1,x2,y1,y2;
+        if(startDrag.x<drag.x) {x1=startDrag.x;x2=drag.x;}
+        else {x1=drag.x;x2=startDrag.x;}
+        if(startDrag.y<drag.y) {y1=startDrag.y;y2=drag.y;}
+        else {y1=drag.y;y2=startDrag.y;}
+        selectRect = new Rectangle(x1,y1,x2,y2,new Color(1,1,1,0.5f));
         List<IShape> selectedShapes = this.select(selectRect);
         for (IShape s : selectedShapes){
             s.setSelected(true);
@@ -172,12 +162,11 @@ public class Scene implements Iterable<IShape>
         while (scan.hasNext()) {
             String type = scan.next();
             if (type.startsWith("CIRCLE")) {
-                addShape(Circle.parsemake(scan.nextLine().trim()));
-            } else if (type.startsWith("RECTANGLE")) {
-                addShape(Rectangle.parsemake(scan.nextLine().trim()));
-            } else if (type.startsWith("POLYGON")) {
-                addShape(Polygon.parsemake(scan.nextLine().trim()));
-            }
+                addShape(Circle.parsemake(scan.nextLine().trim()));}
+            else if (type.startsWith("RECTANGLE")) {
+                addShape(Rectangle.parsemake(scan.nextLine().trim()));}
+            else if (type.startsWith("POLYGON")) {
+                addShape(Polygon.parsemake(scan.nextLine().trim()));}
         }
     }
 
