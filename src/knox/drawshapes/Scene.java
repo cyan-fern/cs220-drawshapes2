@@ -171,9 +171,7 @@ public class Scene implements Iterable<IShape>
         Scanner scan = new Scanner(new FileInputStream(filename));
         while (scan.hasNext()) {
             String type = scan.next();
-            if (type.startsWith("SQUARE")) {
-                addShape(Square.parsemake(scan.nextLine().trim()));
-            } else if (type.startsWith("CIRCLE")) {
+            if (type.startsWith("CIRCLE")) {
                 addShape(Circle.parsemake(scan.nextLine().trim()));
             } else if (type.startsWith("RECTANGLE")) {
                 addShape(Rectangle.parsemake(scan.nextLine().trim()));

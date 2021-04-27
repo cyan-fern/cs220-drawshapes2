@@ -95,18 +95,18 @@ public class DrawShapes extends JFrame
                 
                 if (e.getButton()==MouseEvent.BUTTON1) {
                     if (shapeType == ShapeType.SQUARE) {
-                        IShape s=new Square(0,0,100,color);
+                        IShape s=new Rectangle(0,0,100,100,color);
                         s.moveto(e.getX(),e.getY());
                         scene.addShape(s);}
                     else if (shapeType == ShapeType.CIRCLE){
                     	//already fine by default
                         scene.addShape(new Circle(e.getX(),e.getY(),100,color));}
                     else if (shapeType == ShapeType.RECTANGLE) {
-                        IShape s=new Rectangle(e.getX(),e.getY(),100,200,color);
+                        IShape s=new Rectangle(0,0,100,200,color);
                         s.moveto(e.getX(),e.getY());
                         scene.addShape(s);}
                     else if (shapeType == ShapeType.TRIANGLE) {
-                    	IShape s=new Triangle(0,0,100,200,200,25,color);
+                    	IShape s=new Polygon(new int[]{0,100,200},new int[]{0,200,25},3,color);
                         s.moveto(e.getX(),e.getY());
                         scene.addShape(s);
                     }
